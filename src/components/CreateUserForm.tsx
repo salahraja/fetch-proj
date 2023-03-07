@@ -1,12 +1,13 @@
 "use client";
-import React, { FormEvent, useEffect, useState } from "react";
+import React, {useEffect, useState } from "react";
+import type { FormEvent } from "react";
 
 type Occupation = string;
 interface State {
   name: string;
   abbreviation: string;
 }
-interface FormData {
+interface formData {
   "full-name": string;
   email: string;
   password: string;
@@ -27,13 +28,14 @@ interface APIGetResponse {
 
 // interface APIPostResponse
 
-export default function UserForm() {
+export default function Userform() {
   const [apiData, setAPIData] = useState<APIGetResponse>({
     occupations: [],
     states: [],
   });
   const [error, setError] = useState<string | null>(null);
   const [isSuccessful, setIsSuccessful] = useState(false);
+  const [isSubmitted, setIsSubmitted] = useState(false);
 
   useEffect(() => {
     fetch("https://frontend-take-home.fetchrewards.com/form")
@@ -84,22 +86,22 @@ export default function UserForm() {
   return (
     <>
       <>{error && <div className="error">{error}</div>}</>
-      <>{isSuccessful && <div className="success">Form submitted, thank you.</div>}</>
+      <>{isSuccessful && <div className="success">form submitted, thank you.</div>}</>
       <form onSubmit={handleSubmit}>
-        <div className="form">
+        <div className="form-field">
           <label htmlFor="name">Full Name</label>
           <input type="text" name="name" id="name" required />
         </div>
 
-        <div className="form">
+        <div className="form-field">
           <label htmlFor="email">Email</label>
           <input type="email" name="email" id="email" required />
         </div>
-        <div className="form">
+        <div className="form-field">
           <label htmlFor="password">Password</label>
           <input type="password" name="password" id="password" required />
         </div>
-        <div className="form">
+        <div className="form-field">
           <label htmlFor="occupation">Occupation</label>
           <select name="occupation" id="occupation" required>
             {apiData.occupations.map((occupation, index) => (
@@ -107,7 +109,7 @@ export default function UserForm() {
             ))}
           </select>
         </div>
-        <div className="form">
+        <div className="form-field">
           <label htmlFor="state">State</label>
           <select name="state" id="state" required>
             {apiData.states.map((state, index) => (
@@ -117,8 +119,8 @@ export default function UserForm() {
             ))}
           </select>
         </div>
-
-        <button type="submit">Submit</button>
+        <div className="pl-[55%]">
+        <button type="submit">Submit</button></div>
       </form>
     </>
   );
