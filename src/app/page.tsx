@@ -9,6 +9,9 @@ export default function Home() {
   return (
     <main className={styles.main}>
       <title>Fetch Rewards</title>
+      <div className="">
+        <Image src="/fetch.png" alt="Fetch Rewards logo" width={300} height={135} />
+      </div>
       <CreateUserForm />
     </main>
   );
